@@ -117,7 +117,9 @@ function reducer(state, action) {
       return {
         ...state,
         result: action.payload.result
-      }
+      };
+    default:
+      return state;
   }
 }
 
