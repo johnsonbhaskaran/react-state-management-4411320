@@ -146,7 +146,7 @@ function App() {
             generate={generateRandomValues}
             guess={guessTheNumber}
             onChange={value => dispatch({ type: "setInput", payload: { input: value } })}
-            values={values}
+            values={state.values}
           />
           <Result result={state.result} input={state.input} />
         </div>
