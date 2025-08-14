@@ -113,7 +113,7 @@ function reducer(state, action) {
         ...state,
         input: action.payload.input
       };
-    case "checkResutl":
+    case "checkResult":
       return {
         ...state,
         result: action.payload.result
@@ -127,19 +127,13 @@ function App() {
 
   const [state, dispatch] = useReducer(reducer, initialstate)
 
-  const [values, setValues] = useState({ random1: 0, random2: 0 });
-  const [input, setInput] = useState(0);
-  const [result, checkResult] = useState("");
-
-
   const generateRandomValues = () => {
     const random1 = Math.floor(Math.random() * 50);
     const random2 = Math.floor(Math.random() * 50);
-    setValues({ random1, random2 });
-    checkResult("");
+    dispatch({ type: "setValues", payload: { values: { random1, random2 } } })
   };
   const guessTheNumber = () => {
-    checkResult(values.random1 + values.random2);
+    dispatch({ type: "checkResult", payload: { result: state.values.random1 + state.values.random2 } })
   };
 
   return (
@@ -151,10 +145,10 @@ function App() {
           <Form
             generate={generateRandomValues}
             guess={guessTheNumber}
-            onChange={setInput}
+            onChange={value => dispatch({ type: "setInput", payload: { input: value } })}
             values={values}
           />
-          <Result result={result} input={input} />
+          <Result result={state.result} input={state.input} />
         </div>
       </fieldset>
     </div>
